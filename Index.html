@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lissafi</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 320px;
+}
+
+.card {
+    background: #f1f1f1;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.small {
+    font-size: 14px;
+    color: gray;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2 style="color:white;background-color:blue;">Domin sanin lissafi daga rasuwar Abba</h2>
+    <p class="small">Daga 29/03/2026 zuwa yau</p>
+
+    <!-- Order -->
+    <div class="card" id="totalDays">Kwana: 0</div>
+    <div class="card" id="weeks">Satuka: 0</div>
+    <div class="card" id="months">Watanni: 0</div>
+    <div class="card" id="years">Shekaru: 0</div>
+</div>
+
+<script>
+function calculate() {
+    let start = new Date(2026, 2, 29);
+    let today = new Date();
+
+    if (today < start) {
+        document.getElementById("totalDays").innerHTML = "Har yanzu ba a kai ba";
+        document.getElementById("weeks").innerHTML = "";
+        document.getElementById("months").innerHTML = "";
+        document.getElementById("years").innerHTML = "";
+        return;
+    }
+
+    // total days
+    let diffTime = today - start;
+    let totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    let weeks = Math.floor(totalDays / 7);
+
+    // accurate months & years
+    let years = today.getFullYear() - start.getFullYear();
+    let months = today.getMonth() - start.getMonth();
+
+    if (today.getDate() < start.getDate()) {
+        months--;
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    document.getElementById("totalDays").innerHTML = "📆 Kwana: " + totalDays;
+    document.getElementById("weeks").innerHTML = "🗓️ Satuka: " + weeks;
+    document.getElementById("months").innerHTML = "📅 Watanni: " + months;
+    document.getElementById("years").innerHTML = "📊 Shekaru: " + years;
+}
+
+calculate();
+setInterval(calculate, 1000 * 60 * 60 * 24);
+</script>
+
+</body>
+</html>
+
